@@ -1,8 +1,24 @@
 steps:
   # Шаг 1: Сборка Docker-образа
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/iron-wave-450815-h7/xcoursesbot', '.']
+    args: ['build', '-t', 'gcr.io/iron-wave-450815-h7/xcoursesbot:latest', '.']
     
-  # Шаг 2: Деплой в Google Cloud Run
+  # Шаг 2: Публикация Docker-образа в Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/iron-wave-450815-h7/xcoursesbot:latest']
+
+  # Шаг 3: Деплой в Google Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['run', 'deploy', 'xcoursesbot-service', '--image', 'gcr.io/iron-wave-450815-h7/xcoursesbot', '--region', 'us-central1']
+    args: [
+      'run', 'deploy', 'xcoursesbot-service',
+      '--image', 'gcr.io/iron-wave-450815-h7/xcoursesbot:latest',
+      '--region', 'us-central1',
+      '--platform', 'managed',
+      '--allow-unauthenticated'
+    ]
+
+# Настройка ресурсов
+timeout: 1200s  # Время выполнения (в секундах)
+
+# Параметры, которые могут быть полезны для отладки
+logsBucket: 'gs://your-bucket-name/logs'  # Укажите свой bucket для логов
