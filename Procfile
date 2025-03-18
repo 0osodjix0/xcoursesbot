@@ -1,1 +1,1 @@
-web: python xcoursesbot.py
+worker: python xcoursestbot.py
