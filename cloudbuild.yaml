@@ -6,7 +6,3 @@ steps:
   # Шаг 2: Деплой в Google Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['run', 'deploy', 'xcoursesbot-service', '--image', 'gcr.io/iron-wave-450815-h7/xcoursesbot', '--region', 'us-central1']
-
-# Указываем, что нужно задеплоить образ
-images:
-  - 'gcr.io/iron-wave-450815-h7/xcoursesbot'
