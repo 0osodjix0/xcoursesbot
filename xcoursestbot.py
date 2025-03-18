@@ -28,8 +28,6 @@ TOKEN = os.getenv('TOKEN')
 ADMIN_ID = os.getenv('ADMIN_ID')
 DATABASE_NAME = os.getenv('DATABASE_NAME', 'bot.db')
 
-port = os.getenv('PORT', 8080)  
-
 # Инициализация бота
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
